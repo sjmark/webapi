@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package protos;
+
+enum Tryout {
+    EchoType = 0;
+    HeartbeatReqType = 101;
+    HeartbeatResType = 102;
+    RegisterReqType = 103;
+
+    OnLineMsgReqType = 1001;
+    OnLineMsgResType = 1002;
+
+    CurrencyResType = 3000;
+}
+
+message HeartbeatReq {
+}
+
+message HeartbeatRes {
+}
+
+message RegisterReq {
+    int64 user_id = 1;
+}
+
+// 通用返回
+message CurrencyRes {
+    uint32 code = 1;
+    string desc = 2;
+}
+
+message OnLineMsgReq {
+    repeated int64 to_id = 1;
+    uint32 MsgType = 2;
+    string MsgContent = 3;
+}
+
+message OnLineMsgRes {
+    int64 send_uid = 1;
+    uint32 MsgType = 2;
+    string MsgContent = 3;
+}
+
+message OffLineMsgRes {
+    uint32 MsgType = 1;
+    string MsgContent = 2;
+}

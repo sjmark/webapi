@@ -1,0 +1,262 @@
+package protos;
+
+message BidRequest {
+    required string id = 1;
+    optional string ip = 2;
+    optional string user_agent = 3;
+    optional string baidu_user_id = 4;
+    optional int32 baidu_user_id_version = 5;
+    message BaiduId {
+        optional string baidu_user_id = 1;
+        optional int32 baidu_user_id_version = 2;
+    }
+    repeated BaiduId baidu_id_list = 8;
+    repeated int64 user_category = 6;
+    enum Gender {
+        UNKNOWN = 0;
+        MALE = 1;
+        FEMALE = 2;
+    }
+    optional Gender gender = 7;
+    optional string detected_language = 9;
+    optional string flash_version = 10;
+
+    message Geo {
+        message Coordinate {
+            enum Standard {
+                BD_09 = 0;
+                GCJ_02 = 1;
+                WGS_84 = 2;
+                BD_09_LL = 3;
+            }
+            optional Standard standard = 1;
+            optional float latitude = 2;
+            optional float longitude = 3;
+        }
+        repeated Coordinate user_coordinate = 1;
+        message UserLocation {
+            optional string province = 1;
+            optional string city = 2;
+            optional string district = 3;
+            optional string street = 4;
+        }
+        optional UserLocation user_location = 2;
+    }
+    optional Geo user_geo_info = 28;
+
+    optional string url = 11;
+    optional string referer = 12;
+    optional int32 site_category = 13;
+    optional int32 site_quality = 14;
+    optional int32 page_type = 15;
+    repeated string page_keyword = 17;
+    optional int32 page_quality = 18;
+    optional int32 page_vertical = 21;
+    repeated int32 excluded_product_category = 19 [packed = true];
+
+    message Mobile {
+        optional string DEPRECATED_device_id = 1;
+        message MobileID {
+            enum IDType {
+                UNKNOWN = 0;
+                IMEI = 1;
+                MAC = 2;
+            }
+            optional IDType type = 1;
+            optional string id = 2;
+        }
+        repeated MobileID id = 13;
+
+        enum MobileDeviceType {
+            UNKNOWN_DEVICE = 0;
+            HIGHEND_PHONE = 1;
+            TABLET = 2;
+        }
+
+        optional MobileDeviceType device_type = 2;
+
+        enum OS {
+            UNKNOWN_OS = 0;
+            IOS = 1;
+            ANDROID = 2;
+            WINDOWS_PHONE = 3;
+        }
+        optional OS platform = 3 [default = UNKNOWN_OS];
+
+        message DeviceOsVersion {
+            optional int32 os_version_major = 1;
+            optional int32 os_version_minor = 2;
+            optional int32 os_version_micro = 3;
+        };
+        optional DeviceOsVersion os_version = 4;
+        optional string brand = 5;
+        optional string model = 6;
+        optional int32 screen_width = 7;
+        optional int32 screen_height = 8;
+        optional float screen_density = 15;
+        optional int64 carrier_id = 9;
+        enum WirelessNetworkType {
+            UNKNOWN_NETWORK = 0;
+            WIFI = 1;
+            MOBILE_2G = 2;
+            MOBILE_3G = 3;
+            MOBILE_4G = 4;
+        }
+        optional WirelessNetworkType wireless_network_type = 10;
+
+        optional string DEPRECATED_for_advertising_id = 11;
+        message ForAdvertisingID {
+            enum IDType {
+                UNKNOWN = 0;
+                ANDROID_ID = 4;
+                IDFA = 5;
+            }
+            optional IDType type = 1;
+            optional string id = 2;
+        }
+        repeated ForAdvertisingID for_advertising_id = 14;
+
+        message MobileApp {
+            optional string app_id = 1;
+            optional string app_bundle_id = 2;
+            optional int32 app_category = 3;
+            optional int32 app_publisher_id = 4;
+            enum AppInteractionType {
+                TELEPHONE = 0;
+                DOWNLOAD = 1;
+            }
+            repeated AppInteractionType app_interaction_type = 5;
+        }
+        optional MobileApp mobile_app = 12;
+    }
+    optional Mobile mobile = 29;
+
+    message Video {
+        optional string title = 1;
+        repeated string tags = 2;
+        optional int32 content_length = 3;
+        repeated int64 channel_id = 4;
+    }
+    optional Video video = 30;
+
+    message AdSlot {
+        optional uint64 ad_block_key = 1;
+        optional int32 sequence_id = 2;
+        optional int32 adslot_type = 3;
+        optional int32 width = 4;
+        optional int32 height = 5;
+        optional int32 actual_width = 18;
+        optional int32 actual_height = 19;
+        optional int32 slot_visibility = 6;
+        repeated int32 creative_type = 7 [packed = true];
+        repeated string excluded_landing_page_url = 8;
+        repeated fixed64 publisher_settings_list_id = 14;
+        optional int32 minimum_cpm = 9;
+        optional int32 max_video_duration = 10;
+        optional int32 min_video_duration = 11;
+        optional int32 video_start_delay = 12;
+
+        message VideoInfo {
+            optional int32 max_video_duration = 1;
+            optional int32 min_video_duration = 2;
+            optional int32 video_start_delay = 3;
+        }
+        optional VideoInfo video_info = 15;
+
+        message LinkUnitInfo {
+            repeated int32 style_type = 1;
+            optional int32 req_keyword_num = 2;
+            repeated string proposed_keyword = 3;
+
+            message ProposedKeyword {
+                optional string text = 1;
+                optional float pctr1 = 2;
+            }
+            repeated ProposedKeyword keywords = 4;
+        }
+        optional LinkUnitInfo link_unit_info = 16;
+
+        message PreferredOrderInfo {
+            message PreferredOrder {
+                optional string order_id = 1;
+                optional int64 fixed_cpm = 2;
+            }
+            repeated PreferredOrder preferred_orders = 1;
+            optional bool allow_auction = 2 [default = true];
+        }
+        optional PreferredOrderInfo preferred_order_info = 13;
+
+        message ExpandCreativeInfo {
+            enum ActionType {
+                HOVER = 1;
+                CLICK = 2;
+                LOAD = 3;
+            }
+            repeated ActionType expand_action_type = 1;
+            enum Direction {
+                EXPAND_NONE = 0;
+                EXPAND_UP = 1;
+                EXPAND_DOWN = 2;
+                EXPAND_LEFT = 3;
+                EXPAND_RIGHT = 4;
+            };
+            optional Direction expand_direction = 2;
+            repeated int32 expand_creative_type = 3 [packed = true];
+            optional int32 expand_width = 4;
+            optional int32 expand_height = 5;
+            optional int32 expand_duration = 6;
+        }
+        optional ExpandCreativeInfo expand_creative_info = 17;
+    }
+
+    repeated AdSlot adslot = 20;
+
+    optional bool is_test = 26 [default = false];
+    optional bool is_ping = 27 [default = false];
+}
+
+message BidResponse {
+
+    required string id = 1;
+    message Ad {
+        optional int32 sequence_id = 1;
+        optional int64 creative_id = 2;
+        optional string html_snippet = 7;
+        message LinkUnitKeyword {
+            optional string keyword = 1;
+            repeated int32 selected_style_type = 2;
+        }
+        optional LinkUnitKeyword link_unit_keyword = 18;
+        message ExpandCreativeInfo {
+            optional int32 creative_width = 1;
+            optional int32 creative_height = 2;
+            optional string creative_landing_page = 3;
+            optional int32 creative_type = 4;
+        }
+        optional ExpandCreativeInfo expand_creative_info = 19;
+        optional uint64 advertiser_id = 8;
+        optional int32 width = 9;
+        optional int32 height = 10;
+        optional int32 category = 11;
+        optional int32 type = 12;
+        optional string landing_page = 13;
+        repeated string target_url = 14;
+        repeated string monitor_urls = 17;
+        optional int32 max_cpm = 3;
+        optional string extdata = 5;
+        optional bool is_cookie_matching = 6;
+        optional string preferred_order_id = 15;
+
+        extensions 100 to 199;
+    }
+
+    repeated Ad ad = 2;
+    optional string debug_string = 3;
+    optional int32 processing_time_ms = 4;
+
+}
+
+extend BidResponse.Ad {
+    optional int32 ad_status = 101;
+}
+

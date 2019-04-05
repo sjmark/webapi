@@ -1,0 +1,27 @@
+package protos;
+
+message PdbBidResponse {
+    required string id = 1;
+    repeated SeatBid seatbid = 2;
+    optional string bidid = 3;
+}
+
+message SeatBid {
+    repeated Bid bid = 1;
+}
+
+message Bid {
+    required string id = 1;
+    required string impid = 2;
+    required double price = 3;
+    optional string adid = 4;
+    optional string nurl = 5;
+    optional string adm = 6;
+    repeated string impurl = 100;
+    optional string ext = 101;
+    optional string templeid = 102;
+    repeated string expurl = 103;
+    optional string dealid = 104;
+    optional string bt_type = 10001;
+    optional string bt_info = 10002;
+}

@@ -1,0 +1,10 @@
+package protos;
+
+message Tag {
+    required int64 tag = 1;
+    repeated int64 time = 2;
+}
+
+message Tags {
+    repeated Tag tags = 1;
+}

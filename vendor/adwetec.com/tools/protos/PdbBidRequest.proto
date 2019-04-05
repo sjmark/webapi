@@ -1,0 +1,417 @@
+package protos;
+
+message PdbBidRequest {
+    // 请求id
+    required string id = 1;
+
+    // 曝光对象
+    repeated Imp imp = 2;
+
+    // 页面信息
+    optional Site site = 3;
+
+    // 应用参数
+    optional App app = 4;
+
+    // 设备参数
+    optional Device device = 5;
+
+    // 用户信息
+    optional User user = 6;
+
+    // 竞价类型, where 1 = First Price, 2 = Second Price Plus[default = SECOND_PRICE].
+    optional AuctionType at = 7;
+
+    // 超时时间, 100ms
+    optional int32 tmax = 8;
+
+    // 实验列表
+    repeated int32 experiment_id_list = 100;
+
+    // dislike信息
+    optional string user_dislike_ad = 101;
+
+    // 透传字段
+    repeated GeneralTransInfo trans_info_list = 102;
+}
+
+message Imp {
+    // 曝光id
+    required string id = 1;
+
+    // Banner
+    optional Banner banner = 2;
+
+    // Video
+    //optional Video video = 3;
+
+    // Audio
+    //optional Audio audio = 15;
+
+    // 广告位id
+    optional string tagid = 7;
+
+    // 竞价最低价格
+    optional double bidfloor = 8;
+
+    // 标识是http还是https,0 = non-secure, 1 = secure
+    optional bool secure = 12;
+
+    // Native
+    optional Native native = 13;
+
+    // 流量支持的模板ID列表
+    repeated string templelist = 100;
+
+    // 订单ID列表
+    repeated string dealidlist = 101;
+}
+
+message Banner {
+    // 宽
+    optional int32 w = 1;
+
+    // 高
+    optional int32 h = 2;
+
+    // banner位置
+    optional AdPosition pos = 4;
+}
+
+message Native {
+    optional NativeRequest request_native = 50;
+}
+
+message GeneralTransInfo {
+    // key
+    required string key = 1;
+
+    // value
+    optional string value = 2;
+
+    // key可能对应的数组形式的value
+    repeated Pair value_list = 3;
+}
+
+message Pair {
+    optional string key = 1;
+    optional string value = 2;
+}
+
+message Site {
+    optional string name = 2;
+    optional string domain = 3;
+    optional string page = 7;
+    optional string ref = 9;
+}
+
+message App {
+    optional string id = 1;
+    optional string name = 2;
+    optional string ver = 7;
+    optional string bundle = 8;
+}
+
+message Device {
+    optional string ua = 2;
+    optional string ip = 3;
+    optional Geo geo = 4;
+    optional string ipv6 = 9;
+    optional string model = 13;
+
+    // 系统类型
+    optional string os = 14;
+
+    // 系统版本
+    optional string osv = 15;
+
+    // 屏幕宽度
+    optional int32 w = 25;
+
+    // 屏幕高度
+    optional int32 h = 26;
+
+    // 网络类型
+    optional ConnectionType connectiontype = 17;
+
+    // 设备类型
+    optional DeviceType devicetype = 18;
+
+    optional string ifa = 20;
+    optional string macsha1 = 21;
+    optional string macmd5 = 22;
+    optional string cuid = 100;
+}
+
+message Geo {
+    optional double lat = 1;
+    optional double lon = 2;
+    optional LocationType type = 9;
+}
+
+message User {
+    optional string id = 1;
+    optional string buyeruid = 2;
+    optional int32 yob = 3;
+    optional string gender = 4;
+    optional string keywords = 5;
+    optional Geo geo = 7;
+    optional string baiduid = 100;
+}
+
+message NativeRequest {
+    optional LayoutId layout = 2;
+    optional ContextType context = 7;
+    optional ContextSubtype contextsubtype = 8;
+    optional PlacementType plcmttype = 9;
+    optional int32 plcmtcnt = 4 ;
+}
+
+enum AuctionType {
+    FIRST_PRICE = 1;
+    SECOND_PRICE = 2;
+    FIXED_PRICE = 3;
+}
+
+enum BannerAdType {
+    XHTML_TEXT_AD = 1;
+    XHTML_BANNER_AD = 2;
+    JAVASCRIPT_AD = 3;
+    IFRAME = 4;
+}
+
+enum CreativeAttribute {
+    AUDIO_AUTO_PLAY = 1;
+    AUDIO_USER_INITIATED = 2;
+    EXPANDABLE_AUTOMATIC = 3;
+    EXPANDABLE_CLICK_INITIATED = 4;
+    EXPANDABLE_ROLLOVER_INITIATED = 5;
+    VIDEO_IN_BANNER_AUTO_PLAY = 6;
+    VIDEO_IN_BANNER_USER_INITIATED = 7;
+    PROVOCATIVE_OR_SUGGESTIVE = 9;
+    ANNOYING = 10;
+    SURVEYS = 11;
+    TEXT_ONLY = 12;
+    USER_INTERACTIVE = 13;
+    WINDOWS_DIALOG_OR_ALERT_STYLE = 14;
+    HAS_AUDIO_ON_OFF_BUTTON = 15;
+    AD_CAN_BE_SKIPPED = 16;
+    FLASH = 17;
+}
+
+enum APIFramework {
+    VPAID_1 = 1;
+    VPAID_2 = 2;
+    MRAID_1 = 3;
+    ORMMA = 4;
+    MRAID_2 = 5;
+};
+
+enum AdPosition {
+    UNKNOWN = 0;
+    ABOVE_THE_FOLD = 1;
+    DEPRECATED_LIKELY_BELOW_THE_FOLD = 2;
+    BELOW_THE_FOLD = 3;
+    HEADER = 4;
+    FOOTER = 5;
+    SIDEBAR = 6;
+    AD_POSITION_FULLSCREEN = 7;
+}
+
+enum VideoLinearity {
+    // Linear/In-stream
+    LINEAR = 1;
+
+    // Non-linear/Overlay
+    NON_LINEAR = 2;
+}
+enum Protocol {
+    VAST_1_0 = 1;
+    VAST_2_0 = 2;
+    VAST_3_0 = 3;
+    VAST_1_0_WRAPPER = 4;
+    VAST_2_0_WRAPPER = 5;
+    VAST_3_0_WRAPPER = 6;
+    VAST_4_0 = 7;
+    VAST_4_0_WRAPPER = 8;
+    DAAST_1_0 = 9;
+    DAAST_1_0_WRAPPER = 10;
+}
+
+enum PlaybackMethod {
+    AUTO_PLAY_SOUND_ON = 1;
+    AUTO_PLAY_SOUND_OFF = 2;
+    CLICK_TO_PLAY = 3;
+    MOUSE_OVER = 4;
+}
+
+enum StartDelay {
+    PRE_ROLL = 0;
+    GENERIC_MID_ROLL = -1;
+    GENERIC_POST_ROLL = -2;
+}
+
+enum ConnectionType {
+    CONNECTION_UNKNOWN = 0;
+    ETHERNET = 1;
+    WIFI = 2;
+    CELL_UNKNOWN = 3;
+    CELL_2G = 4;
+    CELL_3G = 5;
+    CELL_4G = 6;
+}
+
+enum ExpandableDirection {
+    LEFT = 1;
+    RIGHT = 2;
+    UP = 3;
+    DOWN = 4;
+    EXPANDABLE_FULLSCREEN = 5;
+}
+
+enum ContentDeliveryMethod {
+    STREAMING = 1;
+    PROGRESSIVE = 2;
+}
+
+enum ContentContext {
+    VIDEO = 1;
+    GAME = 2;
+    MUSIC = 3;
+    APPLICATION = 4;
+    TEXT = 5;
+    OTHER = 6;
+    CONTEXT_UNKNOWN = 7;
+}
+
+enum ProductionQuality {
+    QUALITY_UNKNOWN = 0;
+    PROFESSIONAL = 1;
+    PROSUMER = 2;
+    USER_GENERATED = 3;
+}
+
+enum LocationType {
+    GPS_LOCATION = 1;
+    IP = 2;
+    USER_PROVIDED = 3;
+}
+
+enum LocationService {
+    IP2LOCATION = 1;
+    NEUSTAR = 2;
+    MAXMIND = 3;
+    NETAQUITY = 4;
+}
+
+enum DeviceType {
+    APP = 1;
+    PC = 2;
+    WAP = 3;
+}
+
+enum CompanionType {
+    STATIC = 1;
+    HTML = 2;
+    COMPANION_IFRAME = 3;
+}
+
+enum QAGMediaRating {
+    ALL_AUDIENCES = 1;
+    EVERYONE_OVER_12 = 2;
+    MATURE = 3;
+}
+
+enum NoBidReason {
+    UNKNOWN_ERROR = 0;
+    TECHNICAL_ERROR = 1;
+    INVALID_REQUEST = 2;
+    KNOWN_WEB_SPIDER = 3;
+    SUSPECTED_NONHUMAN_TRAFFIC = 4;
+    CLOUD_DATACENTER_PROXYIP = 5;
+    UNSUPPORTED_DEVICE = 6;
+    BLOCKED_PUBLISHER = 7;
+    UNMATCHED_USER = 8;
+}
+enum FeedType {
+    MUSIC_SERVICE = 1;
+    BROADCAST = 2;
+    PODCAST = 3;
+}
+
+enum VolumeNormalizationMode {
+    NONE = 0;
+    AVERAGE_VOLUME = 1;
+    PEAK_VOLUME = 2;
+    LOUDNESS = 3;
+    CUSTOM_VOLUME = 4;
+}
+
+enum LayoutId {
+    CONTENT_WALL = 1;
+    APP_WALL = 2;
+    NEWS_FEED = 3;
+    CHAT_LIST = 4;
+    CAROUSEL = 5;
+    CONTENT_STREAM = 6;
+    GRID = 7;
+}
+
+enum AdUnitId {
+    PAID_SEARCH_UNIT = 1;
+    RECOMMENDATION_WIDGET = 2;
+    PROMOTED_LISTING = 3;
+    IAB_IN_AD_NATIVE = 4;
+    ADUNITID_CUSTOM = 5;
+}
+
+enum ContextType {
+    CONTENT = 1;
+    SOCIAL = 2;
+    PRODUCT = 3;
+}
+
+enum ContextSubtype {
+    CONTENT_GENERAL_OR_MIXED = 10;
+    CONTENT_ARTICLE = 11;
+    CONTENT_VIDEO = 12;
+    CONTENT_AUDIO = 13;
+    CONTENT_IMAGE = 14;
+    CONTENT_USER_GENERATED = 15;
+
+    SOCIAL_GENERAL = 20;
+    SOCIAL_EMAIL = 21;
+    SOCIAL_CHAT_IM = 22;
+
+    PRODUCT_SELLING = 30;
+    PRODUCT_MARKETPLACE = 31;
+    PRODUCT_REVIEW = 32;
+}
+
+enum PlacementType {
+    IN_FEED = 1;
+    ATOMIC_UNIT = 2;
+    OUTSIDE = 3;
+    RECOMMENDATION = 4;
+}
+
+enum DataAssetType {
+    SPONSORED = 1;
+    DESC = 2;
+    RATING = 3;
+    LIKES = 4;
+    DOWNLOADS = 5;
+    PRICE = 6;
+    SALEPRICE = 7;
+    PHONE = 8;
+    ADDRESS = 9;
+    DESC2 = 10;
+    DISPLAYURL = 11;
+    CTATEXT = 12;
+}
+
+enum ImageAssetType {
+    ICON = 1;
+    LOGO = 2;
+    MAIN = 3;
+}
