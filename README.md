@@ -2,8 +2,9 @@
 
 基于trie树的敏感词过滤服务， 支持grpc调用
 
-
 ## 安装
+
+server 启动 
 
 ```
 $ go get github.com/sjmark/webapi
@@ -15,6 +16,7 @@ $ vim conf.cnf
 $ cd  $GOPATH/src/webapi/cmd/server
 $ go run main.go start.go
 ```
+filter 启动 
 
 ```
 $ cd  $GOPATH/src/webapi/cmd/filter
