@@ -21,7 +21,7 @@ func login() {
 
 	// 登陆无需数据加密
 	var req = &http_proto.LoginReq{
-		Mobile: "15811513938",
+		Mobile: "xxxxxx",
 	}
 
 	s, _ := json.Marshal(req)

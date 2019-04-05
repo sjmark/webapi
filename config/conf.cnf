@@ -7,17 +7,17 @@ pwd-master2=123456
 
 [database]
 db.driver=mysql
-db.dbname=xdcy
-db.user=sujiangcy8888
-db.password=sj8888++
-db.host=rm-bp1jg2jk740716wp7eo.mysql.rds.aliyuncs.com:3306
+db.dbname=DBNAME
+db.user=user
+db.password=pwd
+db.host=127.0.0.01:3306
 
 [database.readonly]
 db.driver=mysql
-db.dbname=xdcy
-db.user=sujiangcy8888
-db.password=sj8888++
-db.host=rm-bp1jg2jk740716wp7eo.mysql.rds.aliyuncs.com:3306
+db.dbname=DBNAME
+db.user=user
+db.password=pwd
+db.host=127.0.0.01:3306
 
 [mongo]
 mongo-host=127.0.0.1:9990

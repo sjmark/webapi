@@ -1,6 +1,0 @@
-File opened at: 2019/04/04 19:48:35
-Built with gc go1.10 for darwin/amd64
-File opened at: 2019/04/04 21:45:55
-Built with gc go1.10 for darwin/amd64
-File opened at: 2019/04/04 22:02:03
-Built with gc go1.10 for darwin/amd64
