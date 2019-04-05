@@ -34,7 +34,7 @@ func handleConn(conn net.Conn) {
 	// 如果 3 分钟没有收到客户端过来的消息
 	// 连接将会断开
 	reader.SetTimeout(time.Second * 180)
-	session.RWSession = netutil.NewRWSession(id, cfg.ConWriteSize, reader) //s.Config.ConWriteSize
+	session.RWSession = netutil.NewRWSession(id, cfg.ConWriteSize, reader)
 	// 启动会话
 	session.Run(session.OnNewSession, session.OnQuitSession)
 }

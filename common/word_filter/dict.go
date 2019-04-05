@@ -88,7 +88,7 @@ func (d *Dict) LoadDict() {
 	//载入用户词库 非必须
 	userDictDataPath := d.UserDictDataPath
 	if userDictDataPath==""{
-		userDictDataPath="./dict.txt"
+		userDictDataPath="./user_dict.txt"
 	}
 	userDictFile, userDictErr := os.OpenFile(userDictDataPath, os.O_RDWR|os.O_CREATE, 0666)
 	if userDictErr != nil {

@@ -9,6 +9,8 @@ import (
 
 	"github.com/mkideal/log"
 	pb "github.com/golang/protobuf/proto"
+	"webapi/common/tools/tool"
+	"fmt"
 )
 
 type Context struct {
@@ -69,11 +71,7 @@ func (sess *Session) OnQuitSession() {
 }
 
 func (sess *Session) OnRecvPacket(data []byte) {
-	defer func() {
-		if e := recover(); e != nil {
-			log.Warn("session %s onRecvPacket error: %v", sess.Id(), e)
-		}
-	}()
+	defer tool.PrintPanicStack("OnRecvPacket")
 
 	typ, err := packet.DecodeType(data)
 
@@ -86,24 +84,26 @@ func (sess *Session) OnRecvPacket(data []byte) {
 
 	// 将协议号转换成protobuf协议号枚举并取得枚举的字符串表示
 	typeName := protos.Tryout(typ).String()
+
 	ptc := packet.New(typeName)
 	if ptc == nil {
 		// 不支持的协议类型,打印日志
 		log.Warn("不支持的协议类型: %d", typ)
 		return
 	}
+
 	if err := pb.Unmarshal(data[2:], ptc); err != nil {
 		log.Warn("解析消息体错误: %v", err)
 		sess.Quit()
 		return
 	}
+	fmt.Println(sess.userId)
 	if sess.userId == 0 {
 		// userId 为 0 表示是为登陆状态
 		// 未登陆时只允许一部分协议
 		mtype := protos.Tryout(typ)
 		switch mtype {
 		case protos.Tryout_HeartbeatReqType:
-		case protos.Tryout_RegisterReqType:
 		default:
 			// 其他协议必须要求登陆后才可以发
 			log.Warn("登陆后才可以发消息 %d", typ)

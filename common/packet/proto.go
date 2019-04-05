@@ -58,15 +58,15 @@ func New(typeName string) pb.Message {
 	// 去掉 "Type" 后缀是因为枚举名后面有 Type 后缀
 	// NOTE: 请保持将协议 XYZ 的协议好枚举命名为 XYZType
 	// 比如 LoginReq 协议的类型枚举必须是 LoginReqType
-	msgType := pb.MessageType("proto." + strings.TrimSuffix(typeName, "Type"))
+	msgType := pb.MessageType("protos." + strings.TrimSuffix(typeName, "Type"))
 	// 根据类型由反射机制创建对象
 	return reflect.New(msgType.Elem()).Interface().(pb.Message)
 }
 
 // 获取协议类型
 func TypeOf(ptc pb.Message) int {
-	name := strings.TrimPrefix(pb.MessageName(ptc), "proto.") + "Type"
-	m := pb.EnumValueMap("proto.Tryout")
+	name := strings.TrimPrefix(pb.MessageName(ptc), "protos.") + "Type"
+	m := pb.EnumValueMap("protos.Tryout")
 	if m == nil {
 		return 0
 	}

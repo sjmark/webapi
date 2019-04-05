@@ -1,4 +1,4 @@
-package hanndler
+package handler
 
 import (
 	"webapi/session"

@@ -21,7 +21,7 @@ func login() {
 
 	// 登陆无需数据加密
 	var req = &http_proto.LoginReq{
-		Mobile: "xxxxxx",
+		Mobile: "15811513938",
 	}
 
 	s, _ := json.Marshal(req)
@@ -40,6 +40,7 @@ func login() {
 
 	// 返回数据解密
 	ss := encryption.RC4DescryptBase64(string(res), key)
+	fmt.Println(ss)
 	var info = http_proto.LoginRes{}
 	json.Unmarshal([]byte(ss), &info)
 

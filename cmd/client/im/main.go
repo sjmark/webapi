@@ -1,4 +1,4 @@
-package im
+package main
 
 import (
 	"flag"
@@ -14,7 +14,7 @@ import (
 	"net"
 )
 
-var flAddr = flag.String("p", "127.0.0.1:8082", "服务器地址")
+var flAddr = flag.String("p", "127.0.0.1:8282", "服务器地址")
 
 func main() {
 	//var origin = "http://127.0.0.1:8080/"
@@ -29,7 +29,7 @@ func main() {
 	session.sess = netutil.NewRWSession(conn.RemoteAddr().String(), 256, reader)
 	session.sess.Run(func() {
 		go func() {
-			for range time.Tick(time.Second * 10) {
+			for range time.Tick(time.Second * 2) {
 				heartbeat := new(protos.HeartbeatReq)
 				log.Info("send heartbeat")
 				send(session.sess, heartbeat)

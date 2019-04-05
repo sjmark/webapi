@@ -1,9 +1,10 @@
-package hanndler
+package handler
 
 import (
 	"webapi/protos/im_proto"
 
 	"webapi/session"
+	"fmt"
 )
 
 func init() {

@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 	"flag"
-	_ "webapi/cmd/server/handler"
+	_ "webapi/cmd/im/handler"
 	"webapi/config"
 	"github.com/mkideal/log"
 	"webapi/common/osutil/signal"
